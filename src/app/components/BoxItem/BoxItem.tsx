@@ -16,14 +16,15 @@ interface BoxItemPropsType {
 	productData: ProductData
 }
 
-export const BoxItem = ( (props: BoxItemPropsType) => {
+export const BoxItem = ((props: BoxItemPropsType) => {
 	const { id, title, image, price, productData } = props;
 	const dispatch = useDispatch();
 	const router = useRouter();
 
-	const addToCart = () => {
+	const addToCart = (e) => {
 		dispatch(ADD_TO_CART(productData))
 		alert('Product added to basket');
+		e.stopPropagation()
 	}
 	
 	const handleRedirect = () => {
@@ -37,7 +38,8 @@ export const BoxItem = ( (props: BoxItemPropsType) => {
 				<Image title={title} alt={title} src={image} />
 			</ImgWrapper>
 			<p><b>{price} $</b></p>
-			<Button bgColor="red" onClick={addToCart}>Add to basket</Button>
+			{/* @ts-ignore */}
+			<Button bgColor="red" onClick={(e) => addToCart(e)}>Add to basket</Button>
 		</BoxWrapper>
 	);
 });

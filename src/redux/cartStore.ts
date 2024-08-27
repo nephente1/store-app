@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface ProductData {
 	title: string,
@@ -24,7 +24,6 @@ const CART_SLICE = createSlice({
   initialState,
   reducers: {
     ADD_TO_CART(state, action) {
-      //if that action product has already in cart then if block will work
       const itemIndex = state.cartData.findIndex((item) => item.id === action.payload.id);
       if (itemIndex >= 0) {
         state.cartData[itemIndex].amount += 1;
@@ -60,7 +59,5 @@ export const {
   REMOVE_FROM_CART,
   REDUCE_PRODUCT,
 } = CART_SLICE.actions;
-
-
 
 export default CART_SLICE.reducer;

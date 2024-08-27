@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_TO_CART, REDUCE_PRODUCT, REMOVE_FROM_CART } from '../redux/cartStore';
+import { ADD_TO_CART, REDUCE_PRODUCT, REMOVE_FROM_CART } from '../../redux/cartStore';
 import { RootState } from '@/redux/rootReducer';
 import { ProductData } from '@/redux/cartStore';
 import { CategoryTitle, Container } from '@/app/styles/styles';
 import { Button } from '@/app/components/Button';
 import { useRouter } from 'next/router';
-import { CartItem, ItemName, ItemAmount, ItemPrice, RemoveOption } from '@/app/styles/CartItem.styles';
+import { CartItem, ItemName, ItemAmount, ItemPrice, RemoveOption } from '@/pages/cart/CartItem.styles';
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const CartPage = () => {
 				</RemoveOption>
 			</CartItem>
 		);
-	},[cartData]);
+	},[cartData, dispatch]);
 
 	const cartRedirection = () => {
 		router.push('/cart');

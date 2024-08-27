@@ -1,13 +1,10 @@
-import { AxiosResponse } from 'axios';
 import * as React from 'react';
-import {Column, ColumnText, DetailsContainer, TitleText, Price, Description, ImgWrapper, Image, CategoryTitle} from './ProductDetails.styles';
+import { Column, ColumnText, DetailsContainer, TitleText, Price, Description, ImgWrapper, Image, CategoryTitle} from './ProductDetails.styles';
 import { useDispatch } from 'react-redux';
 import { ADD_TO_CART } from '@/redux/cartStore';
 import { useRouter } from 'next/router';
-import { PageContainer } from '@/app/styles/styles';
-import { getProduct } from "@/app/common/api";
 import { Button } from '@/app/components/Button';
-
+import { getProduct } from '@/app/api/api';
 
 const ProductDetails = ({productDetails}) => {
   const dispatch = useDispatch();

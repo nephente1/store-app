@@ -27,8 +27,9 @@ export const Container = styled('div')`
 export const ContentContainer = styled('div')`
 	display: flex;
 	flex-direction: column;
+
 	@media screen and (min-width: 600px){
-			flex-direction: row;
+		flex-direction: row;
 	}
 `;
 
@@ -37,6 +38,7 @@ export const PageContainer = styled('div')`
 	flex-direction: column;
 	padding: 20px 30px;
   width: 100%;
+
 	@media screen and (min-width: 615px){
 		width: 80%;
 			margin: auto;
@@ -54,21 +56,21 @@ export const CategoryTitle = styled('h3')`
 	color: ${props => props.theme.blue};
 	font-size: 28px;
 	text-transform: capitalize;
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 `;
 
 export const BigTitle = styled('h2')`
-    color: ${props => props.theme.red};
+  color: ${props => props.theme.red};
 	font-size: 28px;
 	text-transform: uppercase;
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 `;
 
 export const ColumnLayout = styled.div`
 	display: flex;
 	flex-direction: column;
 	& span {
-			font-size: 50px;
+		font-size: 50px;
 	}
 `;
 

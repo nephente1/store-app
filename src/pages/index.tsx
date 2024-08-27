@@ -1,8 +1,8 @@
 import React from 'react';
 import { BigTitle, CategoryLink, ColumnLayout } from '../app/styles/styles';
-import { getCategories } from '@/app/common/api';
+import { getCategories } from '@/app/api/api';
 
-const Main = ({categories}) => {
+const MainPage = ({categories}) => {
 	return (
     <ColumnLayout>
 			<span className="material-symbols-outlined">shopping_basket</span>
@@ -12,7 +12,7 @@ const Main = ({categories}) => {
   )
 };
 
-export default Main
+export default MainPage
 
 
 export async function getStaticProps() {

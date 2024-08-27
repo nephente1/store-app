@@ -1,4 +1,4 @@
-import { getCategoryProducts } from '@/app/common/api';
+import { getCategoryProducts } from '@/app/api/api';
 import { useRouter } from 'next/router';
 import { BoxItem } from '@/app/components/BoxItem/BoxItem';
 import { Button } from '@/app/components/Button';
