@@ -7,6 +7,8 @@ import { PageView } from "../app/components/PageView";
 import { theme } from "@/app/styles/styles";
 import "../app/styles/global.css";
 import Head from "next/head";
+import ErrorBoundary from "@/app/components/ErrorBoundary";
+
 
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -18,9 +20,11 @@ const App = ({ Component, pageProps }: AppProps) => {
 			<Provider store={store}>
 				<PersistGate loading={null} persistor={persistor}>
 					<ThemeProvider theme={theme}>
-							<PageView>
+						<PageView>
+							<ErrorBoundary>
 								<Component {...pageProps} />
-							</PageView>
+						  </ErrorBoundary>
+						</PageView>
 					</ThemeProvider>
 				</PersistGate>
 			</Provider>

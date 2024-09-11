@@ -82,7 +82,7 @@ export const CategoryLink = styled(Link)`
 	font-weight: 600;
 	font-size: 28px;
 	&:hover {
-		color: ${props => props.theme.dark};
+		color: ${props => props.theme.red};
 	}
 `;
 

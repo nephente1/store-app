@@ -1,8 +1,11 @@
-import { getCategoryProducts } from '@/app/api/api';
+import { getCategories, getCategoryProducts } from '@/app/api/api';
 import { useRouter } from 'next/router';
 import { BoxItem } from '@/app/components/BoxItem/BoxItem';
 import { Button } from '@/app/components/Button';
 import { BoxesContainer, CategoryTitle, ColumnLayout, ContentContainer } from '@/app/styles/styles';
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import { ParsedUrlQuery } from 'querystring';
+import { ProductData } from '@/redux/cartStore';
 
 const CategoryPage = ({categoryProducts}) => {
   const router = useRouter();
@@ -15,14 +18,16 @@ const CategoryPage = ({categoryProducts}) => {
       id={el.id} 
       title={el.title} 
       price={el.price} 
-      image={el.image}/>
+      image={el.image}
+      category={el.category}
+    />
     )
   );
 
   const handleBackClick = () => {
     router.back();
   };
-	
+
   return(
     <ColumnLayout>
       <CategoryTitle>{categoryName}</CategoryTitle>
@@ -39,18 +44,30 @@ const CategoryPage = ({categoryProducts}) => {
 export default CategoryPage;
 
 
-export async function getServerSideProps(router) {
-  const category = router.query.category;
-	try {
-		const categoryProducts: string[] = await getCategoryProducts(category);
-		return {
-			props: {
-				categoryProducts,
-			},
-		}
-  } catch (error) {
-		return {
-			props: {categoryProducts: null},
-		};
-	}
+interface CategoryParams extends ParsedUrlQuery {
+  category: string
 }
+
+type CategoryProps = {
+  categoryProducts?: ProductData[],
+}
+
+export const getStaticPaths: GetStaticPaths<CategoryParams> = async () => {
+  const categories: string[] = await getCategories();
+
+  const paths = categories.map((category) => {
+    return {
+        params: { category },
+    }
+  })
+  return { paths, fallback: true } //falback: true renders ErrorBoundary page
+}
+ 
+export const getStaticProps: GetStaticProps<CategoryProps, CategoryParams> = (async (context: GetStaticPropsContext) => {
+  const { category } = context.params as CategoryParams;
+
+  const categoryProducts: ProductData[] = await getCategoryProducts(category);
+  return { props: { categoryProducts } }
+}) satisfies GetStaticProps<{
+  categoryProducts: ProductData[]
+}>

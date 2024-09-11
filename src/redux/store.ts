@@ -1,13 +1,36 @@
+'use client'
 
-
-import { createStore } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from 'next-redux-wrapper';
 import { rootReducer } from "./rootReducer";
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; 
+// import storage from 'redux-persist/lib/storage'; 
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
-// Konfiguracja redux-persist
+
+//*** configuration to avoid error: redux-persist failed to create sync storage. falling back to noop storage. ***/
+const createNoopStorage = () => {
+  return {
+    getItem(_key: any) {
+      return Promise.resolve(null);
+    },
+    setItem(_key: any, value: any) {
+      return Promise.resolve(value);
+    },
+    removeItem(_key: any) {
+      return Promise.resolve();
+    },
+  };
+};
+
+  // create alternative storage:
+const storage =
+  typeof window !== "undefined"
+    ? createWebStorage("local")
+    : createNoopStorage();
+//*** end ***/
+
+// Configuration redux-persist
 const persistConfig = {
   key: 'root',
   storage,

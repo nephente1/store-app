@@ -22,7 +22,7 @@ export const getCategoryProducts = async (categoryName: string) => {
 };
 
 // Getting specific product by id
-export const getProduct = async (id: number | string) => {
+export const getProduct = async (id: string) => {
   const { data } = await instance.get(`/products/${id}`);
   return data;
 };

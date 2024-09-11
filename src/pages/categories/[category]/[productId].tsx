@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { Column, ColumnText, DetailsContainer, TitleText, Price, Description, ImgWrapper, Image, CategoryTitle} from './ProductDetails.styles';
 import { useDispatch } from 'react-redux';
-import { ADD_TO_CART } from '@/redux/cartStore';
+import { ADD_TO_CART, ProductData } from '@/redux/cartStore';
 import { useRouter } from 'next/router';
 import { Button } from '@/app/components/Button';
 import { getProduct } from '@/app/api/api';
+import { GetServerSideProps } from 'next';
+import { ParsedUrlQuery } from 'querystring';
+import { notFound } from 'next/navigation';
 
 const ProductDetails = ({productDetails}) => {
   const dispatch = useDispatch();
@@ -17,6 +20,14 @@ const ProductDetails = ({productDetails}) => {
   const handleBackClick = () => {
     router.back();
   };
+
+	if (productDetails.category && router.query.category !== productDetails.category) {
+		return <div>Wrong category or category not exist</div>
+	}
+
+  if (!productDetails) {
+    notFound()
+  }
 
   return (
     <div>
@@ -44,18 +55,21 @@ const ProductDetails = ({productDetails}) => {
 
 export default ProductDetails;
 
-export async function getServerSideProps(router) {
-  const productId = router.query.productId;
-	try {
-		const productDetails: string[] = await getProduct(productId);
-		return {
-			props: {
-				productDetails,
-			},
-		}
-  } catch (error) {
-		return {
-			props: {productDetails: null},
-		};
-	}
+
+interface ProductParams extends ParsedUrlQuery {
+  productId: string
+}
+interface ProductProps {
+  productDetails: ProductData
+}
+
+export const getServerSideProps: GetServerSideProps<ProductProps> = async(context) => {
+  const { productId } = context.params as ProductParams;
+  const productDetails: ProductData = await getProduct(productId);
+
+  return {
+    props: {
+      productDetails,
+    },
+  }
 }

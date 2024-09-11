@@ -8,7 +8,7 @@ export interface ProductData {
 	category: string,
 	image: string,
 	id: number,
-	amount: number
+	amount?: number
 }
 
 interface CartStateTypes {
@@ -26,7 +26,7 @@ const CART_SLICE = createSlice({
     ADD_TO_CART(state, action) {
       const itemIndex = state.cartData.findIndex((item) => item.id === action.payload.id);
       if (itemIndex >= 0) {
-        state.cartData[itemIndex].amount += 1;
+        state.cartData[itemIndex].amount! += 1;
       } else {
         const product = { ...action.payload, amount: 1 };
         state.cartData.push(product);
@@ -42,8 +42,8 @@ const CART_SLICE = createSlice({
         (item) => item.id === action.payload.id
       );
 
-      if (state.cartData[itemIndex].amount > 1) {
-        state.cartData[itemIndex].amount -= 1;
+      if (state.cartData[itemIndex].amount! > 1) {
+        state.cartData[itemIndex].amount! -= 1;
       } else if (state.cartData[itemIndex].amount === 1) {
         const updatedCart = state.cartData.filter(
           (p) => p.id !== action.payload.id

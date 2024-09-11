@@ -13,11 +13,12 @@ interface BoxItemPropsType {
 	image: string,
 	key: number,
 	id: number,
-	productData: ProductData
+	productData: ProductData,
+	category: string;
 }
 
 export const BoxItem = ((props: BoxItemPropsType) => {
-	const { id, title, image, price, productData } = props;
+	const { id, title, image, price, productData, category } = props;
 	const dispatch = useDispatch();
 	const router = useRouter();
 
