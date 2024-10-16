@@ -9,7 +9,7 @@ export const TopHeader = () => {
 	const getActualCart = useSelector( (state: RootState) => state.cartReducer);
 	const cartItems = getActualCart.cartData;
 	const getProductsAmount = React.useMemo(() => {
-		return cartItems.reduce((result, item) => item.amount + result, 0);
+		return cartItems.reduce((result, item) => (item.amount ? item.amount : 0) + result, 0);
 	}, [cartItems]);
 
 	return (

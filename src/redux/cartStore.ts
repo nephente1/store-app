@@ -8,7 +8,7 @@ export interface ProductData {
 	category: string,
 	image: string,
 	id: number,
-	amount?: number
+	amount: number
 }
 
 interface CartStateTypes {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Column, ColumnText, DetailsContainer, TitleText, Price, Description, ImgWrapper, Image, CategoryTitle} from './ProductDetails.styles';
+import { Column, ColumnText, DetailsContainer, TitleText, Price, Description, ImgWrapper, Image, CategoryTitle} from '../../../app/styles/ProductDetails.styles';
 import { useDispatch } from 'react-redux';
 import { ADD_TO_CART, ProductData } from '@/redux/cartStore';
 import { useRouter } from 'next/router';

@@ -6,7 +6,7 @@ import { ProductData } from '@/redux/cartStore';
 import { CategoryTitle, Container } from '@/app/styles/styles';
 import { Button } from '@/app/components/Button';
 import { useRouter } from 'next/router';
-import { CartItem, ItemName, ItemAmount, ItemPrice, RemoveOption } from '@/pages/cart/CartItem.styles';
+import { CartItem, ItemName, ItemAmount, ItemPrice, RemoveOption } from '@/app/styles/CartItem.styles';
 
 const CartPage = () => {
   const dispatch = useDispatch();
